@@ -127,6 +127,28 @@ h2, h3 { margin: 0 0 10px; font-size: 14px; color: var(--muted); font-weight: 60
     background-color: color-mix(in srgb, var(--ok) 90%, black);
 }
 
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    text-decoration: none; /* In case it's an anchor tag */
+}
+
+.btn-primary:hover {
+    background: color-mix(in srgb, var(--accent) 90%, black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
 .summary-card .amount { font-size: 36px; font-weight: 700; line-height: 1.1; }
 .summary-card .projected-balance { font-size: 12px; color: var(--muted); margin-top: 4px; height: 1.2em; font-weight: 600; }
 .summary-card .amount.paid { color: var(--ok); } .summary-card .amount.unpaid { color: var(--danger); } .summary-card .amount.total { color: var(--accent); }
@@ -907,65 +929,74 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
 
 /* ========== Goals View Specific Styles ========== */
 #goalsView .dashboard-row {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .goals-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     min-height: 200px;
 }
 
 .goal-item {
-    background: rgba(128,128,128,0.05);
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: calc(var(--border-radius) / 1.5);
-    padding: 16px;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    border-radius: var(--border-radius);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
     gap: 16px;
-    align-items: center;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.dark .goal-item {
+    background: #1c1c1e;
+    border-color: #38383a;
 }
 
 .goal-item:hover {
-    background: rgba(128,128,128,0.08);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
 }
 
 .goal-info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
 .goal-name {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     color: var(--text);
+}
+
+.goal-notes-display {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
 }
 
 .goal-progress {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .goal-progress-bar {
     width: 100%;
-    height: 8px;
+    height: 10px;
     background: var(--border);
-    border-radius: 4px;
+    border-radius: 5px;
     overflow: hidden;
 }
 
 .goal-progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--accent), var(--ok));
-    border-radius: 4px;
-    transition: width 0.3s ease;
+    border-radius: 5px;
+    transition: width 0.4s ease;
 }
 
 .goal-progress-text {
@@ -973,19 +1004,85 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
     color: var(--muted);
     display: flex;
     justify-content: space-between;
-}
-
-.goal-amount {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 18px;
+    font-weight: 500;
 }
 
 .goal-actions {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.goal-amount-container {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.goal-amount-saved {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    font-family: var(--font-mono);
+}
+
+.goal-amount-total {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.goal-action-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.goal-action-btn {
+    background-color: color-mix(in srgb, var(--bg) 50%, var(--border));
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--muted);
+    transition: all 0.2s ease;
+}
+.dark .goal-action-btn {
+    background-color: #2c2c2e;
+}
+
+.goal-action-btn:hover {
+    background-color: color-mix(in srgb, var(--bg) 30%, var(--border));
+    color: var(--text);
+    transform: scale(1.1);
+}
+.dark .goal-action-btn:hover {
+    background-color: #3a3a3c;
+}
+
+.goal-action-btn.add {
+    background-color: var(--accent);
+    color: white;
+}
+.goal-action-btn.add:hover {
+    background-color: color-mix(in srgb, var(--accent) 90%, black);
+    color: white;
+}
+
+.goal-action-btn.delete:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+.goal-action-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
 }
 
 .goal-form {
@@ -1130,14 +1227,6 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
     }
     .mobile-view #goalsView main.dashboard-container {
         padding: 0;
-    }
-    .mobile-view .goal-item {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-    .mobile-view .goal-actions {
-        flex-direction: row;
-        justify-content: flex-start;
     }
 }
 
@@ -1506,7 +1595,7 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
                 </div>
                 <form id="expenseForm" style="display: none;">
                     <input type="text" id="expenseDescription" placeholder="e.g., Lunch" required>
-                    <input type="number" id="expenseAmount" placeholder="$ Amount" required>
+                    <input type="number" id="expenseAmount" placeholder="$ Amount" step="0.01" required>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <button type="button" id="cancelCustomExpenseBtn">Cancel</button>
                         <button type="submit">Log Expense</button>
@@ -1708,19 +1797,19 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
           <div id="activeGoalsList" class="goals-list">
             <div class="no-goals-message" id="noGoalsMessage">
               <p>🎯 No goals yet! Create your first financial goal to get started.</p>
-              <button id="createFirstGoalBtn" class="ctrl-btn" style="margin-top: 10px; padding: 12px 24px; background: var(--accent); color: white; border-radius: calc(var(--border-radius) / 1.5);">Create Your First Goal</button>
+              <button id="createFirstGoalBtn" class="btn-primary" style="margin-top: 10px;">Create Your First Goal</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Goal Creation Form (Initially Hidden) -->
-      <div id="goalCreationCard" class="card glass" style="display: none;">
-        <div class="card-header">
-          <h2>Create New Goal</h2>
-          <button id="cancelGoalCreationBtn" class="ctrl-btn">✕</button>
-        </div>
-        <form id="goalCreationForm" class="goal-form">
+    </main>
+  </div>
+
+  <div id="goalCreationModal" class="modal-overlay">
+    <div class="modal-content glass">
+      <h2>Create New Goal</h2>
+      <form id="goalCreationForm" class="goal-form" style="border-bottom: none; padding-bottom: 0;">
           <div class="form-row">
             <label for="goalName">Goal Name</label>
             <input type="text" id="goalName" placeholder="e.g., Emergency Fund, Vacation" required>
@@ -1758,15 +1847,13 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
               <strong>Total: <span id="scheduleTotalAmount">$0.00</span> over <span id="scheduleTotalPayments">0</span> payments</strong>
             </div>
           </div>
-          <div class="form-actions">
+          <div class="form-actions modal-buttons">
             <button type="button" id="cancelGoalBtn" class="cancel-btn">Cancel</button>
             <button type="button" id="previewGoalBtn" class="save-btn" style="display: none;">Create</button>
             <button type="submit" id="createGoalBtn" class="save-btn" style="display: none;">✅ Confirm & Create Goal</button>
           </div>
         </form>
-      </div>
-
-    </main>
+    </div>
   </div>
 
   <div id="editModal" class="modal-overlay"><div class="modal-content glass"><h2 id="editModalTitle">Edit Bill</h2><div class="modal-form"><label for="editBillName">Bill Name</label><input type="text" id="editBillName" class="full-width"><label for="editBillAmount">Total Amount</label><input type="number" step="0.01" id="editBillAmount" class="full-width"><label for="editBillDate">Due Date</label><input type="date" id="editBillDate" class="full-width"><label for="editBillCategory">Category</label><select id="editBillCategory" class="full-width"></select><label for="editBillFrequency">Frequency</label><select id="editBillFrequency" class="full-width"></select><div id="editCustomFrequencyWrapper" class="full-width" style="display: none;"><input type="number" id="editBillCustomFrequency" placeholder="Every X Days" style="width: 100%;"></div><label for="editBillNotes">Notes</label><textarea id="editBillNotes" class="full-width"></textarea><div id="editSplitBillInputs" class="full-width"><hr><label>Split Info</label><input type="text" id="editBillSplitName" placeholder="Split with (Name)"><input type="number" id="editBillSplitAmount" placeholder="Their Share ($)"></div><div class="modal-buttons"><button type="button" class="cancel-btn" id="closeModalBtn">Cancel</button><button type="button" class="save-btn" id="saveEditBtn">Save Changes</button></div></div></div></div>
@@ -1818,7 +1905,7 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
             </div>
             <form id="expenseModalForm" style="display: none; flex-direction: column; gap: 10px; margin-top: 10px;">
                 <input type="text" id="expenseModalDescription" placeholder="e.g., Lunch" required>
-                <input type="number" id="expenseModalAmount" placeholder="$ Amount" required>
+                <input type="number" id="expenseModalAmount" placeholder="$ Amount" step="0.01" required>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <button type="button" id="cancelCustomExpenseModalBtn">Cancel</button>
                     <button type="submit">Log Expense</button>
@@ -1936,9 +2023,9 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
     const goalsView = $('goalsView'), goalsTabBtn = $('goalsTabBtn');
     const activeGoalsCount = $('activeGoalsCount'), totalSaved = $('totalSaved'), totalGoalAmount = $('totalGoalAmount');
     const activeGoalsList = $('activeGoalsList'), noGoalsMessage = $('noGoalsMessage');
-    const goalCreationCard = $('goalCreationCard'), goalCreationForm = $('goalCreationForm');
+    const goalCreationModal = $('goalCreationModal'), goalCreationForm = $('goalCreationForm');
     const addGoalBtn = $('addGoalBtn'), createFirstGoalBtn = $('createFirstGoalBtn');
-    const cancelGoalCreationBtn = $('cancelGoalCreationBtn'), cancelGoalBtn = $('cancelGoalBtn');
+    const cancelGoalBtn = $('cancelGoalBtn');
     const goalName = $('goalName'), goalAmount = $('goalAmount'), goalEndDate = $('goalEndDate'), goalNotes = $('goalNotes');
     const feasibilityCheck = $('feasibilityCheck');
     const paymentSchedulePreview = $('paymentSchedulePreview'), scheduleList = $('scheduleList');
@@ -4357,17 +4444,26 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
                     </div>
                     <div class="goal-progress-text">
                         <span>${Math.round(progress)}% complete</span>
-                        <span>${daysRemaining} days left</span>
+                        <span>${daysRemaining > 0 ? `${daysRemaining} days left` : 'Target date reached'}</span>
                     </div>
                 </div>
-                ${goal.notes ? `<div style="font-size: 12px; color: var(--muted);">${goal.notes}</div>` : ''}
+                ${goal.notes ? `<div class="goal-notes-display">${goal.notes}</div>` : ''}
             </div>
             <div class="goal-actions">
-                <div class="goal-amount">${formatCurrency(goal.savedAmount || 0)} / ${formatCurrency(goal.amount)}</div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="ctrl-btn" onclick="editGoal(${goal.id})" title="Modify Goal">Modify</button>
-                    <button class="ctrl-btn" onclick="addGoalPayment(${goal.id})" title="Add Payment" style="background: var(--accent); color: white;">+</button>
-                    <button class="ctrl-btn" onclick="deleteGoal(${goal.id})" title="Delete Goal" style="background: var(--danger); color: white;">🗑️</button>
+                <div class="goal-amount-container">
+                    <div class="goal-amount-saved">${formatCurrency(goal.savedAmount || 0)}</div>
+                    <div class="goal-amount-total"> of ${formatCurrency(goal.amount)}</div>
+                </div>
+                <div class="goal-action-buttons">
+                    <button class="goal-action-btn" onclick="editGoal(${goal.id})" title="Modify Goal">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <button class="goal-action-btn add" onclick="addGoalPayment(${goal.id})" title="Add Payment">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <button class="goal-action-btn delete" onclick="deleteGoal(${goal.id})" title="Delete Goal">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                    </button>
                 </div>
             </div>
         `;
@@ -5363,7 +5459,7 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
     // Goal Creation Form Events
     [addGoalBtn, createFirstGoalBtn].forEach(btn => {
         btn.addEventListener('click', () => {
-            goalCreationCard.style.display = 'block';
+            goalCreationModal.classList.add('visible');
             // Set minimum date to tomorrow
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
@@ -5371,10 +5467,10 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
         });
     });
 
-    [cancelGoalCreationBtn, cancelGoalBtn].forEach(btn => {
-        btn.addEventListener('click', () => {
-            console.log('Goal creation cancelled');
-            goalCreationCard.style.display = 'none';
+    cancelGoalBtn.addEventListener('click', () => {
+        goalCreationModal.classList.remove('visible');
+        // Use a timeout to allow the closing animation to finish before resetting the form
+        setTimeout(() => {
             goalCreationForm.reset();
             feasibilityCheck.style.display = 'none';
             paymentSchedulePreview.style.display = 'none';
@@ -5383,7 +5479,7 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
             downPaymentAmount.style.display = 'none';
             makeDownPayment.checked = false;
             downPaymentInput.value = '';
-        });
+        }, 200); // Match CSS transition duration
     });
 
     previewGoalBtn.addEventListener('click', () => {
@@ -5449,7 +5545,7 @@ tr.collapsing { overflow:hidden; height:0 !important; padding-top:0 !important; 
         
         // Hide the goal creation form with a small delay to ensure all operations complete
         setTimeout(() => {
-            goalCreationCard.style.display = 'none';
+            goalCreationModal.classList.remove('visible');
             goalCreationForm.reset();
             feasibilityCheck.style.display = 'none';
             paymentSchedulePreview.style.display = 'none';
